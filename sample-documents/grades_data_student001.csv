@@ -1,0 +1,13 @@
+student_id,student_name,semester,course_code,course_name,credits,grade,grade_points,faculty,attendance_rate,assignment_score,midterm_score,final_score,total_score
+STU001,Sarah Johnson,Fall 2024,CS301,Data Structures & Algorithms,4,A,4.0,Dr. Smith,95.5,88.2,85.0,87.5,86.2
+STU001,Sarah Johnson,Fall 2024,CS302,Database Management Systems,3,B+,3.5,Prof. Johnson,93.2,82.5,78.0,84.0,81.5
+STU001,Sarah Johnson,Fall 2024,CS303,Computer Networks,4,A-,3.7,Dr. Williams,96.8,86.8,83.5,88.0,86.1
+STU001,Sarah Johnson,Fall 2024,MATH201,Discrete Mathematics,3,B,3.0,Prof. Brown,92.1,78.5,72.0,80.5,77.0
+STU001,Sarah Johnson,Fall 2024,ENG201,Technical Communication,2,A,4.0,Dr. Davis,98.5,92.0,90.5,94.0,92.2
+STU001,Sarah Johnson,Fall 2024,CS304,Software Engineering,3,B+,3.5,Prof. Miller,94.3,84.2,79.5,85.5,83.1
+STU001,Sarah Johnson,Spring 2024,CS201,Programming Fundamentals,4,B+,3.5,Dr. Smith,91.2,80.5,76.0,82.0,79.5
+STU001,Sarah Johnson,Spring 2024,CS202,Web Development,3,A,4.0,Prof. Johnson,95.8,89.0,87.5,90.5,89.0
+STU001,Sarah Johnson,Spring 2024,MATH101,Calculus I,4,B,3.0,Prof. Brown,89.5,75.2,71.5,78.0,74.9
+STU001,Sarah Johnson,Spring 2024,PHY101,Physics I,3,B+,3.5,Dr. Williams,93.0,81.5,77.0,83.5,80.7
+STU001,Sarah Johnson,Spring 2024,ENG101,English Composition,2,A-,3.7,Dr. Davis,96.2,87.5,85.0,89.5,87.3
+STU001,Sarah Johnson,Spring 2024,CS203,Computer Organization,3,B,3.0,Prof. Miller,90.8,76.8,73.5,79.0,76.4

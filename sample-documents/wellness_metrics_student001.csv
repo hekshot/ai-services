@@ -1,0 +1,6 @@
+student_id,student_name,assessment_date,stress_level,anxiety_level,depression_level,sleep_quality,social_connection,physical_activity,overall_wellness,risk_level,counselor_notes
+STU001,Sarah Johnson,2024-09-05,7.5,6.5,8.5,5.5,8.0,7.0,7.0,Moderate,Initial assessment shows academic stress
+STU001,Sarah Johnson,2024-10-10,6.8,7.2,8.2,6.0,8.2,7.5,7.4,Moderate,Improvement in coping mechanisms
+STU001,Sarah Johnson,2024-11-15,6.5,7.0,8.0,6.0,8.5,7.5,7.2,Low,Stress management strategies working well
+STU001,Sarah Johnson,2024-08-20,8.0,5.5,8.8,5.0,7.8,6.5,6.8,Moderate,High academic pressure at semester start
+STU001,Sarah Johnson,2024-12-01,6.2,7.5,8.3,6.5,8.8,8.0,7.6,Low,Good preparation for finals period
