@@ -98,8 +98,13 @@ RESPONSE_TEMPLATES = {
     "chitchat": "I'm here to help with student data analysis. Please ask me about academic performance, wellness, placement, or extracurricular activities.",
     "no_results": "I couldn't find relevant information to answer your question.",
     "error": "An error occurred while processing your request. Please try again.",
-    "invalid_query": "I don't understand your question. Please ask about student data analysis."
 }
+
+# Guardrails Thresholds
+MIN_CONTEXT_SCORE = 0.3
+MIN_ANSWER_QUALITY_SCORE = 0.5
+MAX_HALLUCINATION_RISK = 0.4
+MIN_FACTUAL_ACCURACY = 0.6
 
 # Status Codes
 HTTP_STATUS_CODES = {

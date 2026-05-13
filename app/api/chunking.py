@@ -68,17 +68,23 @@ class SearchResponse(BaseModel):
     total_found: int
 
 @router.post("/create", response_model=ChunkingResponse)
-async def create_chunks(request: ChunkingRequest):
+async def create_chunks(
+    student_id: str = Query(...),
+    document_id: str = Query(...),
+    document_type: str = Query(...),
+    category: str = Query(...),
+    semester: Optional[str] = Query(None)
+):
     """
     Create chunks from a document
     """
     try:
         result = chunker.chunk_document(
-            student_id=request.student_id,
-            document_id=request.document_id,
-            document_type=request.document_type,
-            category=request.category,
-            semester=request.semester
+            student_id=student_id,
+            document_id=document_id,
+            document_type=document_type,
+            category=category,
+            semester=semester
         )
         
         if result.get("success"):
@@ -93,7 +99,7 @@ async def create_chunks(request: ChunkingRequest):
         else:
             return ChunkingResponse(
                 success=False,
-                document_id=request.document_id,
+                document_id=document_id,
                 total_chunks=0,
                 chunk_size=0,
                 chunk_overlap=0,
@@ -135,15 +141,19 @@ async def get_chunk_statistics(student_id: str):
         raise HTTPException(status_code=500, detail=f"Error getting statistics: {str(e)}")
 
 @router.post("/embed", response_model=EmbeddingResponse)
-async def embed_chunks(request: EmbeddingRequest):
+async def embed_chunks(
+    student_id: str = Query(...),
+    category: Optional[str] = Query(None),
+    document_id: Optional[str] = Query(None)
+):
     """
     Generate embeddings for student chunks
     """
     try:
         # Get chunks
         chunks = chunker.get_student_chunks(
-            student_id=request.student_id,
-            category=request.category
+            student_id=student_id,
+            category=category
         )
         
         if not chunks:

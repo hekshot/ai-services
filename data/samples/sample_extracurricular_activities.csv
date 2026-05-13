@@ -1,0 +1,8 @@
+student_id,activity_name,role,start_date,end_date,hours_per_week,description
+STU001,Coding Club,President,2023-09-01,2024-05-31,10,Leading coding club activities and organizing events
+STU001,Basketball Team,Member,2023-09-01,2024-05-31,6,Regular practice and games
+STU001,Peer Tutoring,Tutor,2023-10-01,2024-05-31,4,Tutoring students in computer science courses
+STU001,Hackathon Team,Leader,2023-11-01,2024-05-31,8,Leading team for hackathon competitions
+STU001,Student Government,Member,2023-09-01,2024-05-31,3,Participating in student government meetings
+STU001,Debate Club,Member,2023-09-01,2024-05-31,2,Weekly debate practice and competitions
+STU001,Volunteer Work,Volunteer,2023-09-01,2024-05-31,3,Community service and volunteering activities

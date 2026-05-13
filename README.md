@@ -1,15 +1,37 @@
 # Student Data AI Service
 
-A comprehensive AI-powered backend for student data analysis, placement tracking, and wellness monitoring using advanced RAG (Retrieval-Augmented Generation) with Qdrant vector database.
+A comprehensive AI-powered backend for student data analysis, placement tracking, and wellness monitoring using simplified RAG (Retrieval-Augmented Generation) with Qdrant vector database.
+
+## 🎯 Status: **PRODUCTION READY** ✅
+
+The system has been successfully refactored and tested with a working RAG pipeline that generates analytical insights from student data.
 
 ## 🚀 Features
 
-- **7-Stage Advanced RAG Pipeline**: Query Analysis, HyDE Expansion, Multi-Signal Retrieval, RRF Fusion, Cross-Encoder Reranking, Hierarchy Expansion, LLM Generation
-- **Qdrant Vector Database**: Unified storage for documents, chunks, vectors, and metadata
-- **Multi-Modal Document Processing**: PDF, CSV, TXT, Markdown support
-- **Student-Centric Architecture**: Academic, Wellness, Extracurricular, Placement data categories
-- **Comprehensive Error Handling & Logging**: Production-ready with detailed observability
-- **Open-Source Only**: No paid dependencies, fully self-hosted
+- **✅ Simplified 3-Stage RAG Pipeline**: Query Analysis → Simple Retrieval → LLM Generation
+- **✅ Working LLM Integration**: qwen2.5:7b model generating detailed responses
+- **✅ Data Upload System**: CSV, PDF, TXT, Markdown support with automatic chunking
+- **✅ Multi-Source Synthesis**: Academic, Wellness, Extracurricular, Placement data
+- **✅ Production Deployment**: Docker, nginx, monitoring, health checks
+- **✅ Clean Architecture**: Well-organized, maintainable codebase
+- **✅ Open-Source Stack**: No paid dependencies, fully self-hosted
+
+## 📁 Project Structure
+
+```
+ai-service/
+├── app/                     # Core application code
+│   ├── api/                # API endpoints
+│   └── services/           # Business logic
+├── data/                   # Data files
+│   ├── samples/           # Sample data for testing
+│   └── uploads/           # User uploaded files
+├── scripts/               # Utility scripts
+├── config/                # Configuration files
+├── docs/                  # Documentation
+├── src/                   # LLM providers
+└── tests/                 # Test files
+```
 
 ## 📋 Prerequisites
 
@@ -23,6 +45,37 @@ A comprehensive AI-powered backend for student data analysis, placement tracking
 - **Qdrant**: Vector database (localhost:6333)
 - **Ollama**: Local LLM inference (localhost:11434)
 - **Docker**: For Qdrant container (recommended)
+
+## 🛠️ Quick Start
+
+### 1. Start Required Services
+```bash
+# Start Qdrant vector database
+docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant:latest
+
+# Start Ollama (if not already running)
+ollama serve
+```
+
+### 2. Upload Sample Data
+```bash
+# Upload sample student data
+python scripts/direct_upload.py
+```
+
+### 3. Start Development Server
+```bash
+# Start the AI service
+python scripts/dev_startup.py
+```
+
+### 4. Test the RAG Pipeline
+```bash
+# Test with sample queries
+curl -X POST "http://localhost:8000/api/advanced-rag/query" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "How is the student doing academically?"}'
+```
 
 ## 🛠️ Installation & Setup
 

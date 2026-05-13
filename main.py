@@ -27,29 +27,40 @@ async def root():
     return {
         "message": "AI Service is running",
         "provider": Config.LLM_PROVIDER,
-        "model": Config.LLM_MODEL
+        "model": Config.LLM_MODEL,
+        "version": "1.0.0",
+        "environment": os.getenv("APP_ENV", "development")
     }
 
-
-@app.get("/health", response_model=HealthResponse)
+@app.get("/health")
 async def health_check():
-    """Check if LLM provider is accessible"""
+    """Health check endpoint for monitoring"""
     try:
-        provider_instance = get_provider()
-        is_healthy = await provider_instance.health_check()
+        # Check Qdrant
+        from app.services.qdrant_storage_service import QdrantStorageService
+        storage = QdrantStorageService()
+        storage.connect()
+        collections = storage.client.get_collections()
         
-        return HealthResponse(
-            status="healthy" if is_healthy else "unhealthy",
-            provider=Config.LLM_PROVIDER,
-            connected=is_healthy
-        )
+        # Check Ollama
+        import httpx
+        async with httpx.AsyncClient() as client:
+            response = await client.get("http://localhost:11434/api/tags", timeout=5.0)
+            ollama_healthy = response.status_code == 200
+        
+        return {
+            "status": "healthy",
+            "services": {
+                "qdrant": "healthy",
+                "ollama": "healthy" if ollama_healthy else "unhealthy"
+            },
+            "collections": len(collections.collections)
+        }
     except Exception as e:
-        return HealthResponse(
-            status="unhealthy",
-            provider=Config.LLM_PROVIDER,
-            connected=False,
-            error=str(e)
-        )
+        return {
+            "status": "unhealthy",
+            "error": str(e)
+        }
 
 
 @app.get("/models", response_model=list[ModelInfo])

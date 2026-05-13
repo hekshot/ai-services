@@ -1,0 +1,9 @@
+student_id,course_code,course_name,instructor,semester,grade,credits,attendance,assignment_score,midterm_score,final_score,gpa_points
+STU001,CS301,Data Structures,Dr. Smith,Fall 2023,A,4,95,92,88,94,4.0
+STU001,CS303,Computer Networks,Dr. Williams,Fall 2023,A-,4,93,89,85,87,3.7
+STU001,CS302,Database Systems,Prof. Johnson,Fall 2023,B+,4,88,85,82,84,3.3
+STU001,CS201,Programming Fundamentals,Dr. Brown,Spring 2023,A,4,96,94,92,95,4.0
+STU001,CS202,Web Development,Prof. Davis,Spring 2023,B+,4,90,87,83,85,3.3
+STU001,MATH201,Calculus I,Dr. Wilson,Spring 2023,A-,4,91,88,86,89,3.7
+STU001,ENG101,English Composition,Prof. Miller,Spring 2023,B,4,85,82,80,83,3.0
+STU001,PHY101,Physics I,Dr. Taylor,Spring 2023,B+,4,89,86,84,87,3.3

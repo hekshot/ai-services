@@ -1,9 +1,0 @@
-student_id,student_name,activity_name,activity_type,role,start_date,end_date,hours_per_week,achievements,leadership_score,impact_score
-STU001,Sarah Johnson,Coding Club,Technical,President,2024-09-01,2025-05-31,6.0,"Increased membership 40%, organized 3 hackathons, secured $5000 sponsorships",9.5,9.0
-STU001,Sarah Johnson,AI/ML Study Group,Technical,Founder,2024-10-01,2025-05-31,3.0,"12 active members, 2 research papers submitted",8.5,8.0
-STU001,Sarah Johnson,Cybersecurity Club,Technical,Member,2024-09-01,2025-05-31,2.0,"CTF competitions, Security+ certification in progress",7.0,7.5
-STU001,Sarah Johnson,STEM Tutoring,Community Service,Volunteer Tutor,2024-09-15,2025-05-31,4.0,"8 students mentored, 15% grade improvement",8.0,9.5
-STU001,Sarah Johnson,Women in Tech,Leadership,Mentor,2024-09-01,2025-05-31,1.0,"3 mentees, support group facilitation",8.5,8.0
-STU001,Sarah Johnson,Tennis Team,Sports,Member,2024-09-01,2025-05-31,6.0,"Team captain, quarter-finalist, MVP award",9.0,7.5
-STU001,Sarah Johnson,Yoga Club,Wellness,Member,2024-09-01,2025-05-31,2.0,"200-hour training in progress, stress management",7.5,8.0
-STU001,Sarah Johnson,Hackathon Participation,Competition,Participant,2024-09-01,2025-05-31,8.0,"1st place HackFest, 2nd place Code Challenge",9.5,9.0

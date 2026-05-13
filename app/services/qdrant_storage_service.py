@@ -119,7 +119,7 @@ class QdrantStorageService:
             
             # Create point
             point = PointStruct(
-                id=f"doc_{document_id}",
+                id=str(uuid.uuid4()),
                 vector=zero_vector,
                 payload=payload
             )
@@ -170,16 +170,24 @@ class QdrantStorageService:
                     for i, chunk in enumerate(category_chunks):
                         # Use provided embedding or create zero vector
                         vector = embeddings[i] if embeddings and i < len(embeddings) else [0.0] * VECTOR_SIZE
+                        # Create point with embedding
+                        payload = {
+                            "type": "chunk",
+                            **chunk,
+                            "created_at": chunk.get("created_at", datetime.now().isoformat()),
+                            "updated_at": datetime.now().isoformat()
+                        }
+                        chunk_id = chunk.get("chunk_id")
+                        if chunk_id and chunk_id.startswith("chunk_"):
+                            # Convert to UUID format
+                            chunk_id = str(uuid.uuid4())
+                        else:
+                            chunk_id = chunk_id or str(uuid.uuid4())
                         
                         point = PointStruct(
-                            id=chunk.get("chunk_id", f"chunk_{uuid.uuid4().hex[:8]}"),
-                            vector=vector,
-                            payload={
-                                "type": "chunk",
-                                **chunk,
-                                "created_at": chunk.get("created_at", datetime.now().isoformat()),
-                                "updated_at": datetime.now().isoformat()
-                            }
+                            id=chunk_id,
+                            vector=embeddings[i] if embeddings else [0.0] * VECTOR_SIZE,
+                            payload=payload
                         )
                         points.append(point)
                     
@@ -278,7 +286,7 @@ class QdrantStorageService:
                     
                     # Build filter conditions
                     must_conditions = [
-                        FieldCondition(key="student_id", match=MatchValue(value=student_id)),
+                        FieldCondition(key="student_id", match=MatchValue(value=str(student_id))),
                         FieldCondition(key="type", match=MatchValue(value="chunk"))
                     ]
                     

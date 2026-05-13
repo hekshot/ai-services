@@ -49,6 +49,10 @@ class DocumentProcessor:
     
     def validate_document_type(self, document_type: str) -> bool:
         """Validate document type"""
+        # Accept both category names and document types
+        if document_type in self.categories:
+            return True
+        
         for category, types in self.categories.items():
             if document_type in types:
                 return True
@@ -56,10 +60,15 @@ class DocumentProcessor:
     
     def get_category_from_type(self, document_type: str) -> str:
         """Get category from document type"""
+        # If document_type is already a category, return it
+        if document_type in self.categories:
+            return document_type
+        
+        # Find category from document type
         for category, types in self.categories.items():
             if document_type in types:
                 return category
-        return "other"
+        return document_type  # fallback 
     
     def extract_text_from_pdf(self, file_path: Path) -> str:
         """Extract text from PDF file"""
@@ -119,6 +128,25 @@ class DocumentProcessor:
         except Exception as e:
             self.logger.error(f"Error extracting text from content", exception=e)
             raise DocumentProcessingError(f"Error extracting text: {str(e)}")
+    
+    def extract_text_from_content_bytes(self, file_content: bytes) -> str:
+        """Extract text from text/markdown content without filesystem"""
+        try:
+            return file_content.decode('utf-8')
+        except Exception as e:
+            self.logger.error(f"Error extracting text from content: {e}")
+            raise DocumentProcessingError(f"Error extracting text: {str(e)}")
+    
+    def extract_csv_text_from_content(self, file_content: bytes) -> str:
+        """Extract text from CSV content without filesystem"""
+        try:
+            import io
+            csv_stream = io.StringIO(file_content.decode('utf-8'))
+            df = pd.read_csv(csv_stream)
+            return df.to_string()
+        except Exception as e:
+            self.logger.error(f"Error extracting CSV text from content: {e}")
+            raise DocumentProcessingError(f"Error extracting CSV text: {str(e)}")
     
     def extract_text_from_file(self, file_path: Path, file_type: str) -> str:
         """Extract text from uploaded file (legacy method)"""
@@ -203,8 +231,21 @@ class DocumentProcessor:
             )
             
             # Store everything in Qdrant
-            if not self.save_document_metadata(metadata, cleaned_text):
-                raise DocumentProcessingError("Failed to save document to Qdrant")
+            try:
+                result = self.storage_service.store_document(
+                    student_id=metadata.student_id,
+                    document_id=metadata.document_id,
+                    document_type=metadata.document_type,
+                    category=category,
+                    filename=metadata.filename,
+                    file_size=metadata.file_size,
+                    extracted_text=cleaned_text,
+                    semester=metadata.semester
+                )
+                if not result["success"]:
+                    raise DocumentProcessingError("Failed to save document to Qdrant")
+            except Exception as e:
+                raise DocumentProcessingError(f"Failed to save document to Qdrant: {str(e)}")
             
             return {
                 "success": True,
@@ -246,6 +287,29 @@ class DocumentProcessor:
         # Sort by upload date (newest first)
         documents.sort(key=lambda x: x.get("uploaded_at", ""), reverse=True)
         return documents
+    
+    def _save_document_to_qdrant(self, metadata: DocumentMetadata, extracted_text: str) -> bool:
+        """Save document metadata and extracted text to Qdrant"""
+        try:
+            self.logger.info(f"Saving document {metadata.document_id} to Qdrant")
+            
+            # Store in Qdrant
+            result = self.storage_service.store_document(
+                student_id=metadata.student_id,
+                document_id=metadata.document_id,
+                document_type=metadata.document_type,
+                category=metadata.category,
+                filename=metadata.filename,
+                file_size=metadata.file_size,
+                extracted_text=extracted_text,
+                semester=metadata.semester
+            )
+            
+            return result["success"]
+            
+        except Exception as e:
+            self.logger.error(f"Failed to save document to Qdrant: {e}")
+            return False
     
     def get_document_text(self, document_id: str, category: str) -> str:
         """Get extracted text for a document from Qdrant"""

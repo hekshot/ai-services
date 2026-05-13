@@ -133,12 +133,7 @@ clean:
 # Initialize database
 init-db:
 	@echo "🗄️ Initializing Qdrant collections..."
-	./venv/bin/python -c "
-from app.services.qdrant_storage_service import QdrantStorageService
-storage = QdrantStorageService()
-storage.setup_collections()
-print('✅ Database initialized')
-"
+	./venv/bin/python -c "from app.services.qdrant_storage_service import QdrantStorageService; storage = QdrantStorageService(); storage.setup_collections(); print('✅ Database initialized')"
 
 # Create sample data
 sample-data:

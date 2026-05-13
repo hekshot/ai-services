@@ -134,7 +134,7 @@ class OpenAIProvider(LLMProvider):
 def get_provider() -> LLMProvider:
     """Get LLM provider based on environment configuration"""
     provider = os.getenv("LLM_PROVIDER", "ollama").lower()
-    model = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
+    model = os.getenv("LLM_MODEL", "qwen2.5:7b")  # Use available Ollama model as default
     
     if provider == "ollama":
         base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")

@@ -30,6 +30,14 @@ class ChunkingError(StudentDataServiceException):
         self.document_id = document_id
         self.chunk_count = chunk_count
 
+class RetrievalError(StudentDataServiceException):
+    """Exception raised during retrieval operations"""
+    
+    def __init__(self, message: str, query: str = None, retrieval_method: str = None):
+        super().__init__(message)
+        self.query = query
+        self.retrieval_method = retrieval_method
+
 class EmbeddingError(StudentDataServiceException):
     """Exception raised during embedding generation"""
     

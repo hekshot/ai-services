@@ -1,0 +1,13 @@
+student_id,date,metric_type,value,category,notes
+STU001,2024-01-01,sleep_hours,7.5,physical,Good sleep quality
+STU001,2024-01-01,exercise_minutes,45,physical,Morning run
+STU001,2024-01-01,stress_level,3,mental,Moderate stress
+STU001,2024-01-02,sleep_hours,8.0,physical,Excellent sleep
+STU001,2024-01-02,exercise_minutes,30,physical,Yoga session
+STU001,2024-01-02,stress_level,2,mental,Low stress
+STU001,2024-01-03,sleep_hours,6.5,physical,Poor sleep quality
+STU001,2024-01-03,exercise_minutes,60,physical,Gym workout
+STU001,2024-01-03,stress_level,4,mental,High stress from exams
+STU001,2024-01-04,sleep_hours,7.0,physical,Normal sleep
+STU001,2024-01-04,exercise_minutes,40,physical,Swimming
+STU001,2024-01-04,stress_level,3,mental,Moderate stress

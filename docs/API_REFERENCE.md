@@ -1,5 +1,9 @@
 # API Reference - Student Data AI Service
 
+## 🎯 Status: **WORKING** ✅
+
+All endpoints have been tested and are functioning with the simplified RAG pipeline.
+
 ## Base URL
 ```
 http://localhost:8000
@@ -11,21 +15,52 @@ Currently no authentication required (development mode).
 ## Response Format
 All APIs return JSON responses with appropriate HTTP status codes.
 
-## Document Management APIs
+## 🚀 Core RAG Pipeline API
+
+### Query RAG Pipeline
+**Endpoint**: `POST /api/advanced-rag/query`
+
+**Description**: Submit analytical queries to the RAG pipeline for student data analysis
+
+**Request Body**:
+```json
+{
+  "query": "How is the student doing academically?"
+}
+```
+
+**Response**:
+```json
+{
+  "answer": "Based on the provided context, Sarah is doing well academically...",
+  "intent": "informational",
+  "entities": {"student_id": "STU001", "category": "academic"},
+  "stages_completed": ["query_analysis", "simple_retrieval", "llm_generation"],
+  "processing_time": 9.82,
+  "sources_used": 10
+}
+```
+
+**Example Queries**:
+- "How is the student doing academically?"
+- "Is the student ready for placement?"
+- "What are the student's technical skills?"
+- "How is the student's overall wellness?"
+
+## 📤 Data Management APIs
 
 ### Upload Document
-**Endpoint**: `POST /documents/upload`
+**Endpoint**: `POST /api/data/upload`
 
 **Description**: Upload and process student documents (PDF, CSV, TXT, MD)
 
 **Query Parameters**:
 - `student_id` (required): Student identifier (e.g., "STU001")
-- `document_type` (required): Type of document
-  - Academic: "academic_report", "grades", "transcript"
-  - Wellness: "wellness_report", "mental_health", "counseling"
-  - Extracurricular: "activities", "sports", "clubs", "leadership"
-  - Placement: "placement_report", "career", "internship", "readiness"
-- `semester` (optional): Academic semester (e.g., "Fall 2024")
+- `category` (required): Data category
+  - "academic": Academic reports, grades, transcripts
+  - "wellness": Wellness metrics, health reports
+  - "extracurricular": Activities, clubs, leadership
+  - "placement": Career readiness, placement data
 
 **Request Body**: `multipart/form-data`
 - `file`: Document file (max 10MB)

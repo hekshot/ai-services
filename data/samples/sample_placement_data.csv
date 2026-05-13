@@ -1,0 +1,7 @@
+student_id,company_name,position,application_date,status,interview_date,salary_range,location
+STU001,TechCorp,Software Engineer,2024-01-15,Applied,2024-02-01,80-120k,San Francisco
+STU001,DataSoft,Data Scientist,2024-01-20,Interview Scheduled,2024-02-05,90-130k,New York
+STU001,CloudNet,Backend Developer,2024-01-25,Applied,,70-100k,Austin
+STU001,AIStartup,ML Engineer,2024-02-01,Applied,,100-150k,Remote
+STU001,FinTech,Full Stack Developer,2024-02-05,Rejected,,85-115k,Boston
+STU001,GameDev,Unity Developer,2024-02-10,Applied,,60-90k,Los Angeles

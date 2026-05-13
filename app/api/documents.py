@@ -15,7 +15,7 @@ class UploadResponse(BaseModel):
     success: bool
     document_id: str
     metadata: dict
-    extracted_text_preview: str
+    extracted_text_preview: bool
     file_path: str
     category: str
 
@@ -49,13 +49,20 @@ async def upload_document(
     - Metadata saved
     """
     try:
-        result = await doc_processor.process_document(
+        result = await doc_processor.process_uploaded_file(
             file=file,
             student_id=student_id,
             document_type=document_type,
             semester=semester
         )
-        return UploadResponse(**result)
+        return UploadResponse(
+            success=result["success"],
+            document_id=result["document_id"],
+            metadata=result["metadata"],
+            extracted_text_preview=result["extracted_text_length"] > 0,
+            file_path=f"qdrant:{result['document_id']}",
+            category=result["category"]
+        )
     except HTTPException:
         raise
     except Exception as e:
