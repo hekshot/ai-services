@@ -15,6 +15,9 @@ The system has been successfully refactored and tested with a working RAG pipeli
 - **✅ Production Deployment**: Docker, nginx, monitoring, health checks
 - **✅ Clean Architecture**: Well-organized, maintainable codebase
 - **✅ Open-Source Stack**: No paid dependencies, fully self-hosted
+- **🤖 Hermes Agent Integration**: Autonomous monitoring and analytics
+- **🔧 Comprehensive Health Checks**: Service monitoring and error handling
+- **📊 Real-time Analytics**: Student performance and wellness tracking
 
 ## 📁 Project Structure
 
@@ -22,7 +25,11 @@ The system has been successfully refactored and tested with a working RAG pipeli
 ai-service/
 ├── app/                     # Core application code
 │   ├── api/                # API endpoints
+│   │   └── health.py       # Health monitoring endpoints
 │   └── services/           # Business logic
+├── hermes_skills/          # Hermes Agent integration skills
+│   ├── student_analytics.py # Student data analysis
+│   └── system_monitor.py   # System monitoring
 ├── data/                   # Data files
 │   ├── samples/           # Sample data for testing
 │   └── uploads/           # User uploaded files
@@ -45,8 +52,9 @@ ai-service/
 - **Qdrant**: Vector database (localhost:6333)
 - **Ollama**: Local LLM inference (localhost:11434)
 - **Docker**: For Qdrant container (recommended)
+- **Hermes Agent**: For system monitoring and analytics
 
-## 🛠️ Quick Start
+## 🚀 Quick Start
 
 ### 1. Start Required Services
 ```bash
@@ -55,6 +63,9 @@ docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdran
 
 # Start Ollama (if not already running)
 ollama serve
+
+# Start Hermes Agent (if not already running)
+python hermes_agent/agent.py
 ```
 
 ### 2. Upload Sample Data
@@ -72,9 +83,22 @@ python scripts/dev_startup.py
 ### 4. Test the RAG Pipeline
 ```bash
 # Test with sample queries
-curl -X POST "http://localhost:8000/api/advanced-rag/query" \
+curl -X POST "http://localhost:8000/advanced-rag/query" \
   -H "Content-Type: application/json" \
   -d '{"query": "How is the student doing academically?"}'
+```
+
+### 5. Test Hermes Agent Integration
+```bash
+# Test system monitoring
+python hermes_skills/system_monitor.py
+
+# Test student analytics
+python hermes_skills/student_analytics.py
+
+# Check service health
+curl http://localhost:8000/health/qdrant
+curl http://localhost:8000/health/ollama
 ```
 
 ## 🛠️ Installation & Setup

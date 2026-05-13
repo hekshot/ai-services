@@ -1,0 +1,107 @@
+# Hermes Agent Configuration for AI Service Integration
+# Phase 1 Implementation: Basic Integration
+
+# Agent Configuration
+agent:
+  name: "AI Service Assistant"
+  description: "Autonomous agent for student data analysis and system monitoring"
+  version: "1.0.0"
+
+# Skills Configuration
+skills:
+  - name: "student_analytics"
+    description: "Analyze student academic performance, wellness, and placement readiness"
+    module: "hermes_skills.student_analytics"
+    functions:
+      - "analyze_student"
+      - "daily_analytics"
+      - "check_attention_required"
+    enabled: true
+    
+  - name: "system_monitor"
+    description: "Monitor AI Service health and system performance"
+    module: "hermes_skills.system_monitor"
+    functions:
+      - "system_health"
+      - "quick_health_check"
+    enabled: true
+
+# API Endpoints
+endpoints:
+  ai_service:
+    base_url: "http://localhost:8000"
+    timeout: 30
+  qdrant:
+    url: "http://localhost:6333"
+  ollama:
+    url: "http://localhost:11434"
+
+# Scheduling Configuration
+schedules:
+  - name: "daily_health_check"
+    cron: "0 8 * * *"  # 8 AM daily
+    skill: "system_monitor"
+    function: "system_health"
+    enabled: true
+    
+  - name: "daily_student_analytics"
+    cron: "0 9 * * *"  # 9 AM daily
+    skill: "student_analytics"
+    function: "daily_analytics"
+    enabled: true
+    
+  - name: "attention_check"
+    cron: "*/30 * * * *"  # Every 30 minutes
+    skill: "student_analytics"
+    function: "check_attention_required"
+    enabled: true
+
+# Messaging Configuration (Phase 1 - Basic)
+messaging:
+  platforms:
+    - name: "terminal"
+      enabled: true
+      primary: true
+  
+  # Future platforms (Phase 2)
+  # - name: "telegram"
+  #   enabled: false
+  #   bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
+  #   
+  # - name: "slack"
+  #   enabled: false
+  #   webhook_url: "YOUR_SLACK_WEBHOOK_URL"
+
+# Memory Configuration
+memory:
+  enabled: true
+  retention_days: 30
+  max_entries: 1000
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "hermes_agent.log"
+  max_size: "10MB"
+  backup_count: 5
+
+# Security Configuration
+security:
+  api_key_required: false  # Phase 1 - no auth
+  rate_limiting: false     # Phase 1 - no limits
+  allowed_hosts:
+    - "localhost"
+    - "127.0.0.1"
+
+# Performance Configuration
+performance:
+  max_concurrent_tasks: 5
+  task_timeout: 300  # 5 minutes
+  cache_enabled: true
+  cache_ttl: 3600    # 1 hour
+
+# Development Settings
+development:
+  debug_mode: true
+  mock_external_apis: false
+  test_data_enabled: true
